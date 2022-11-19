@@ -1,0 +1,28 @@
+{
+	"Create New Command": {
+          "prefix": "command",
+          "body": [
+               "import { Command } from \"../../structures/Command\";",
+               "",
+               "export default new Command({",
+               "     name: '${1:COMMAND_NAME}',",
+               "     description: '${2:DESCRIPTION}',",
+               "     run: async ({ interaction }) => {",
+               "          interaction.reply('Pong');",
+               "     }",
+               "})"
+          ],
+          "description": "Create New Command"
+     },
+     "Create New Event": {
+          "prefix": "event",
+          "body": [
+               "import { Event } from \"../structures/Event\";",
+               "",
+               "export default new Event('${1:EVENT_NAME}', () => {",
+               "     console.log(\"AC Ready to Control\")",
+               "});"
+          ],
+          "description": "Create New Event"
+     }
+}
