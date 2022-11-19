@@ -38,7 +38,7 @@ export default new Command({
                let foundCode = await CodeModel.findOne({ code });
 
                if (foundCode) {
-                    if (codeType === 'daily') {
+                    if (codeType === 'daily' && foundCode.type === "daily") {
                          CodeModel.deleteOne({ code }).exec();
 
                          let usedCode = new DailyModel({ discordId: interaction.member.id, code });
@@ -57,7 +57,7 @@ export default new Command({
                               )
           
                          interaction.reply({ embeds: [ codeEmbed ], ephemeral: true })
-                    } else if (codeType === 'weekly') {
+                    } else if (codeType === 'weekly' && foundCode.type === "weekly") {
                          let usedCode = new WeeklyModel({ discordId: interaction.member.id, code });
                          usedCode.save();
 
@@ -74,7 +74,7 @@ export default new Command({
                               )
           
                          interaction.reply({ embeds: [ codeEmbed ], ephemeral: true })
-                    } else {
+                    } else if (codeType === "perma" && foundCode.type === "perma") {
                          let usedCode = new PermaModel({ discordId: interaction.member.id, code });
                          usedCode.save();
 
@@ -91,6 +91,8 @@ export default new Command({
                               )
           
                          interaction.reply({ embeds: [ codeEmbed ], ephemeral: true })
+                    } else {
+                         return interaction.reply({ content: 'Code is of invalid type to selection', ephemeral: true });
                     }
                } else {
                     return interaction.reply({ content: 'Invalid code provided', ephemeral: true });

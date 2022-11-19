@@ -43,13 +43,9 @@ export class ACClient extends Client {
           const slashCommands: ApplicationCommandDataResolvable[] = [];
           const commandFiles = await globPromise(`${__dirname}/../commands/*/*{.ts,.js}`);
 
-          console.log({ commandFiles });
-
           commandFiles.forEach(async filePath => {
                const command: CommandType = await this.importFile(filePath);
                
-               console.log(command);
-
                if (!command.name) return;
 
                this.commands.set(command.name, command);
@@ -62,8 +58,6 @@ export class ACClient extends Client {
 
           // Events
           const eventFiles = await globPromise(`${__dirname}/../events/*{.ts,.js}`);
-
-          console.log({ eventFiles });
           
           eventFiles.forEach(async filePath => {
                const event: Event<keyof ClientEvents> = await this.importFile(filePath);
