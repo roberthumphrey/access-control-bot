@@ -1,6 +1,7 @@
 import { Command } from "../../structures/Command";
 import { ApplicationCommandOptionType, EmbedBuilder } from 'discord.js';
 import { generateCode } from "../../structures/Util";
+import { CodeModel } from "../../database/Schemas/Code";
 
 export default new Command({
      name: 'generate',
@@ -23,6 +24,10 @@ export default new Command({
 
           if (codeType === 'daily') {
                const code = generateCode(codeType, interaction.member.id);
+
+               const newCode = new CodeModel({ code, type: codeType });
+               newCode.save();
+
                const codeEmbed = new EmbedBuilder()
                     .setColor(0x88FF7B)
                     .setTitle('Generated Code')
@@ -34,6 +39,10 @@ export default new Command({
                interaction.reply({ embeds: [ codeEmbed ], ephemeral: true })
           } else if (codeType === 'weekly') {
                const code = generateCode(codeType, interaction.member.id);
+
+               const newCode = new CodeModel({ code, type: codeType });
+               newCode.save();
+
                const codeEmbed = new EmbedBuilder()
                     .setColor(0x88FF7B)
                     .setTitle('Generated Code')
@@ -45,6 +54,10 @@ export default new Command({
                interaction.reply({ embeds: [ codeEmbed ], ephemeral: true })
           } else {
                const code = generateCode(codeType as string, interaction.member.id);
+
+               const newCode = new CodeModel({ code, type: codeType });
+               newCode.save();
+               
                const codeEmbed = new EmbedBuilder()
                     .setColor(0x88FF7B)
                     .setTitle('Generated Code')

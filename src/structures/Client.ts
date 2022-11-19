@@ -4,6 +4,7 @@ import glob from "glob";
 import { promisify } from "util";
 import { RegisterCommandsOptions } from "../typings/Client";
 import { Event } from '../structures/Event'
+import { connect } from "../database";
 
 const globPromise = promisify(glob);
 
@@ -16,6 +17,9 @@ export class ACClient extends Client {
 
      start() {
           this.registerModules();
+
+          // Handle DB Connection
+          connect();
 
           this.login(process.env.botToken);
      }
