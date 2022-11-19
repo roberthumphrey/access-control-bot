@@ -22,6 +22,8 @@ export default new Command({
      run: async ({ interaction }) => {
           const codeType = interaction.options.get('code_type').value;
 
+          if (interaction.member.id !== '112329563849117696') return interaction.reply({ content: 'You lack permission to use this command', ephemeral: true });
+
           if (codeType === 'daily') {
                const code = generateCode(codeType, interaction.member.id);
 
@@ -29,7 +31,7 @@ export default new Command({
                newCode.save();
 
                const codeEmbed = new EmbedBuilder()
-                    .setColor(0x88FF7B)
+                    .setColor(0x915ead)
                     .setTitle('Generated Code')
                     .addFields(
                          { name: 'Type', value: 'Daily' },
@@ -44,7 +46,7 @@ export default new Command({
                newCode.save();
 
                const codeEmbed = new EmbedBuilder()
-                    .setColor(0x88FF7B)
+                    .setColor(0x915ead)
                     .setTitle('Generated Code')
                     .addFields(
                          { name: 'Type', value: 'Weekly' },
@@ -57,9 +59,9 @@ export default new Command({
 
                const newCode = new CodeModel({ code, type: codeType });
                newCode.save();
-               
+
                const codeEmbed = new EmbedBuilder()
-                    .setColor(0x88FF7B)
+                    .setColor(0x915ead)
                     .setTitle('Generated Code')
                     .addFields(
                          { name: 'Type', value: 'Permanent' },

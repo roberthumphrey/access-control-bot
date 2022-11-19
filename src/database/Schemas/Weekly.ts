@@ -3,21 +3,21 @@ import { client } from '../..';
 import { CacheModel } from './Cache';
 const Schema = mongoose.Schema;
 
-export interface IDaily {
+export interface IWeekly {
      createdAt: Date;
      discordId: string;
      code: string;
 }
 
-const Daily = new Schema<IDaily>({
-     createdAt: { type: Date, expires: 86400, default: Date.now() },
+const Weekly = new Schema<IWeekly>({
+     createdAt: { type: Date, expires: 604800, default: Date.now() },
      discordId: { type: String, required: true },
      code: { type: String, required: true }
 });
 
-export const DailyModel = mongoose.model<IDaily>('Daily', Daily);
+export const WeeklyModel = mongoose.model<IWeekly>('Weekly', Weekly);
 
-DailyModel.watch().on('change', async data => {
+WeeklyModel.watch().on('change', async data => {
      if (data.operationType === 'delete') {
           let documentKey = data.documentKey._id.toString();
           let cache = await CacheModel.findOne({ codeId: documentKey });
