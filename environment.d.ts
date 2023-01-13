@@ -13,6 +13,9 @@ declare global {
                db_pass: string;
                db: string;
                db_uri: string;
+
+               twitter_api_consumer_key: string;
+               twitter_api_consumer_secret: string;
           }
      }
 }

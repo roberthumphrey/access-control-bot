@@ -5,11 +5,14 @@ import { promisify } from "util";
 import { RegisterCommandsOptions } from "../typings/Client";
 import { Event } from '../structures/Event'
 import { connect } from "../database";
+import { TwitterApi } from "twitter-api-v2";
 
 const globPromise = promisify(glob);
 
 export class ACClient extends Client {
      commands: Collection<string, CommandType> = new Collection();
+     twitterClient = new TwitterApi({ appKey: process.env.twitter_api_consumer_key, appSecret: process.env.twitter_api_consumer_secret });
+     appClient = this.twitterClient.appLogin();
 
      constructor() {
           super({ intents: 32767 });
